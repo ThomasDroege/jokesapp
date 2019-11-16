@@ -1,0 +1,27 @@
+package thomas.springframework.springjokesapp.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import thomas.springframework.springjokesapp.services.JokeService;
+
+@Controller
+public class JokeController {
+    private JokeService jokeService;
+
+    @Autowired
+    public JokeController(JokeService jokeService) {
+        this.jokeService = jokeService;
+    }
+    @RequestMapping({"/", ""})
+    public String showJoke(Model model){
+
+        //getJoke adds the attribute (named joke) to the model
+        model.addAttribute("joke", jokeService.getJoke());
+
+        return "chucknorris";
+
+    }
+
+}
